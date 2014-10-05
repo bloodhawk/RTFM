@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forum - Sign In</title>
+  <body>
+    <div class="container">
+      <div class="col-md-12 toggles col-md-offset-4">
+        <ul class="list-inline">
+          <li ng-click="toggleLogin()">Login</li>
+          <li ng-click="toggleSignup()">Signup</li>
+          <li ng-click="toggleForgot()">Forgot PW :(</li>
+        </ul>
+      </div>
+      <div ng-show="login">
+        <form class="form-signin" name="lForm" role="form">
+          <h2 class="form-signin-heading">Log in:</h2>
+          <input type="email" name="username" ng-model="username" class="form-control" placeholder="Email address" required autofocus />
+          <input type="password" name="password" ng-model="password" class="form-control" placeholder="Password" required />
+          <button ng-disabled="lForm.$invalid" ng-click="logIn()" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        </form>
+      </div>
+      
+      <div class="sign-upform" ng-show="signup">
+          <form class="s-form form-horizontal" role="form" name="sForm">
+            <h2 class="form-signin-heading">Sign Up:</h2>
+            <div class="form-group">
+              <label for="s-username" class="control-label col-sm-2">Email:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="s-username" name="sUsername" ng-model="sUsername" required>
+                <p ng-if="sForm.sUsername.$error.required && !sForm.sUsername.$pristine" class="help-block">Email is required</p>
+              </div>
+            </div>
+            <div class="form-group has-feedback">
+              <label for="s-password" class="control-label col-sm-2">Password:</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="s-password" name="sPassword" ng-model="sPassword" required>
+                <span ng-if="pCheck" class="glyphicon glyphicon-ok form-control-feedback green"></span>
+                <p ng-if="sForm.sPassword.$error.required && !sForm.sPassword.$pristine" class="help-block">Password is required</p>
+              </div>
+            </div>
+            <div class="form-group has-feedback">
+              <label  for="s-pwcheck" class="control-label col-sm-2">Password Confirm:</label>
+              <div class="col-sm-10">
+                <input check-inputs input-first="sPassword" input-second="sPwcheck" truth-model="pCheck" type="password" class="form-control" id="s-pwcheck" name="sPwcheck" ng-model="sPwcheck" required>
+                <span ng-if="pCheck" class="glyphicon glyphicon-ok form-control-feedback green"></span>
+                <p ng-if="sForm.sPwcheck.$error.required && !sForm.sPwcheck.$pristine" class="help-block">Password confirmation is required</p>
+                <p ng-if="pCheck" class="help-block">Passwords match</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <button ng-disabled="sForm.$invalid" type="submit" class="btn btn-success">Sign Up</button>
+              </div>
+            </div>
+          </form>
+      </div>
+
+      <div class="sign-upform" ng-show="forgot">
+          <form class="s-form form-horizontal" role="form" name="fForm">
+            <h2 class="form-signin-heading">Reset Email:</h2>
+            <div class="form-group">
+              <label for="f-username" class="control-label col-sm-2">Email:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="f-username" name="fUsername" ng-model="fUsername" required>
+                <p ng-if="fForm.fUsername.$error.required && !fForm.fUsername.$pristine" class="help-block">Email is required</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <button ng-disabled="fForm.$invalid" type="submit" class="btn btn-success">Send Reset Link</button>
+              </div>
+            </div>
+          </form>
+      </div>
+      <div ng-show="failure" class="alert alert-danger col-md-4 col-md-offset-4">
+          <strong>Failure!</strong> 
+          {{message}}
+      </div>
+      <div ng-show="success" class="alert alert-success col-md-4 col-md-offset-4">
+          <strong>Success!</strong>
+      </div>
+    </div>
+  </body>
+</html>
